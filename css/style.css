@@ -1,0 +1,702 @@
+/* VARIABILI */
+
+*{
+	max-width:100%;
+}
+
+* {
+  --main-padding-1: 50px;
+  --nero-opaco-1: rgba(0,0,0,0.6);
+  --grigio-scuro: #a7a7a7;
+}
+
+button:focus{
+	border:0px;
+	outline: 0px;
+}
+
+body{
+	font-family: 'Open Sans', sans-serif;
+	background-color: #00395b;
+	color: white;
+}
+
+body::before{
+	background-color: rgba(0,0,0,0.7);
+	content:'';
+	display:block;
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:5;
+	max-width:0px;
+	transition: all 0.3s ease;
+}
+
+body.oscurato::before{
+	max-width:10000px;
+}
+
+main{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+	min-height: calc(100vh - 250px);
+}
+
+.hidden{
+	display:none!important;
+}
+
+.mobile{
+	display:none!important;
+}
+
+.errorBox{
+	-webkit-box-shadow: 0px 0px 12px 2px #F00;
+	box-shadow: 0px 0px 12px 2px #F00;
+}
+
+.noScroll{
+	overflow: hidden!important;
+}
+
+
+/* TYPOGRAPHY */
+
+a{
+	text-decoration:none;
+	transition: all 0.5s ease;
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+h1{
+    font-size: 50px;
+    font-weight: 800;
+	letter-spacing:2px;
+	text-align:center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+header h1{
+	font-size:65px;
+}
+
+h2{
+    font-size: 35px;
+    font-weight: 800;
+	letter-spacing:2px;
+	text-align:center;
+	margin-top: 10px;
+	margin-bottom: 25px;
+}
+
+h3{
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    font-size: 22px;
+}
+
+
+/************* HEADER ****************/
+
+header{
+    background-color: rgba(0,0,0,0.3);
+}
+
+header .container{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#logo{
+	width:150px;	
+}
+
+
+
+/********** CALCOLO COSTO PERGAMENE **********/
+
+.calcoloCostoPergamene{
+	padding:50px 0px;
+	position:relative;
+}
+
+.costoTempo, .totali{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.totali{
+	margin-top:50px;
+}
+
+.costoTempo span, .totali span{
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+	text-align:center;
+	margin-bottom: .5rem;
+}
+
+.costoTempo > div, .totali > div{
+    display: block;
+    width: 150px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+.costoTempo .costoPergamena, .costoTempo .tempoNecessario, .costoTempo .tempoNecessario2, .costoPergamenaTot, .tempoNecessarioTot{
+    background-color: rgba(0,0,0,0.3);
+    width: 150px;
+    height: 31px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 18px;
+	padding:1px 2px;
+	cursor: not-allowed;
+}
+
+
+#calcolaCosto, #resetTotale, .btn-copy, .btn-delete, .closeNote, .btn-retry{
+    border: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    flex-wrap: wrap;
+    align-content: center;
+    background-color: white;
+	position:relative;
+	cursor:pointer;
+	transition: all 0.2s ease;
+	color: #00395b;
+}
+
+#calcolaCosto:hover, #resetTotale:hover, .btn-copy:hover, .btn-delete:hover, .closeNote:hover{
+	transform:scale(1.1);
+}
+
+#calcolaCosto:active, #resetTotale:active, .btn-copy:active, .btn-delete:active, .closeNote:active, .btn-retry:active{
+	color:white;
+	background-color: #00395b;
+	outline: 0px;
+}
+
+#calcolaCosto .fas{
+    font-size: 35px;
+    color: inherit;
+}
+
+#calcolaCosto .tooltip, #resetTotale .tooltip, .btn-copy .tooltip, .btn-delete .tooltip{
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    width: 180px;
+	max-width:180px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+	letter-spacing: 2px;
+    bottom: -30px;
+    padding: 0px;
+    transition: all 0.2s ease;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	transform:scale(0);
+	font-family: 'Caveat', cursive;
+}
+
+#calcolaCosto:hover .tooltip, #resetTotale:hover .tooltip, .btn-copy:hover .tooltip, .btn-delete:hover .tooltip{
+	transform:scale(1);
+}
+
+.calcoloSingolaPergamena{
+	padding:50px;
+	position:relative;
+    border: 3px solid #00000017;
+}
+
+.calcoloCostoPergamene .calcoloSingolaPergamena:nth-child(odd){
+	background-color: rgba(255,255,255,0.1);
+}
+
+.btn-copy{
+	position:absolute;
+	bottom:15px;
+	right:15px;
+	width: 30px;
+	height: 30px;
+}
+
+.btn-copy .fas, .btn-delete .fas, #resetTotale .fas, .closeNote .fas{
+    font-size:20px;
+	color:inherit;
+}
+
+.btn-copy .tooltip, .btn-delete .tooltip{
+    top: -20px;
+    left: -110px;
+	bottom: auto;
+	width:105px;
+	height:40px;
+	transform-origin:right;
+}
+
+.btn-delete{
+	position:absolute;
+	bottom:55px;
+	right:15px;
+	width: 30px;
+	height: 30px;
+}
+
+#resetTotale{
+	width:30px;
+	height:30px;
+	margin-left: calc(50% + 45px);
+	margin-top: -40px;
+}
+
+#resetTotale .tooltip{
+	width:80px;
+}
+
+#calcolaCosto{
+	margin-left:calc(50% - 27px);
+	margin-top:25px;
+}
+
+
+
+
+
+/********** FORM *************/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+form fieldset{
+	padding:0px 10px 10px 10px;
+}
+
+form fieldset:nth-child(2){
+	margin-right:30px;
+	margin-left:30px;
+}
+
+label{
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1;
+	text-align:center;
+}
+
+input.pergamene{
+    border: 0px;
+    width: 110px;
+	text-align:center;
+	font-weight: bold;
+	letter-spacing: 1;
+	font-size: 18px;
+	color: #464646;
+}
+
+input:focus-visible {
+  outline: 3px dashed #0280bd;
+}
+
+#sezionePerg-0 .btn-delete{
+	display:none;
+}
+
+
+/*************** NOTE *****************/
+
+.btn-note{
+	position: absolute;
+	right: 0px;
+	top: 100px;
+	background-color: white;
+	border: 0px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 40px;
+	height: 55px;
+	-webkit-border-top-right-radius: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	-moz-border-radius-topright: 15px;
+	-moz-border-radius-bottomright: 15px;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	padding-left: 8px;
+	font-size: 20px;
+	transform: translate(38px);
+	background-color: #0280bd;
+	color:white;
+	cursor:pointer;
+}
+
+.btn-note .fa-times{
+	font-size:25px;
+}
+
+.closeNote{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	width:30px;
+	height:30px;
+	color:#0280bd;
+}
+
+#note{
+    position: fixed;
+    background-color: #0280bd;
+    padding: 50px;
+    width: 400px;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    font-size: 13px;
+    line-height: 1.8;
+	z-index:10;
+	transform: translate(-400px);
+	transition: all 0.5s ease;
+	overflow: visible;
+}
+
+#note.capolino{
+	transform: translate(-380px);
+}
+
+#note.noteVisibili{
+	transform: translate(0px);
+}
+
+#note a{
+	color:white;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+#note a:hover{
+	color:#00395b;
+}
+
+#note a .fas{
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+
+
+/************ CAMBIO LINGUA ***********/
+
+#selettoreLingua {
+    background-color: rgba(0,0,0,0.6);
+    display: block;
+    padding: 15px 5px 15px 10px;
+    position: absolute;
+    right: 0px;
+    bottom: 10vh;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#selettoreLingua img{
+    border-style: none;
+    height: 18px;
+    display: block;
+}
+
+
+
+
+
+/*********** FOOTER ***************/
+
+footer{
+    text-align: center;
+    padding: 20px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+}
+
+footer a{
+	color:white;
+}
+
+footer a:hover{
+	color:#0280bd;
+}
+
+
+
+
+/********************* ALERT VARI ****************/
+
+#alertVari{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.85);
+}
+
+#alertVari .testoAlert{
+    background-color: white;
+    padding: 25px 50px;
+    color: #ac0000;
+    border-radius: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 17px;
+	text-align:center;
+}
+
+#alertVari .testoAlert .far{
+    font-size:45px;
+}
+
+.btn-retry{
+	background-color:#0280bd;
+	color:white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40px;
+	height: 40px;
+	margin-top: 25px;
+}
+
+.btn-retry:hover{
+	transform: rotate(90deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+/*************** CHROME ****************/
+
+
+@supports (-webkit-appearance:none) {
+    .btn-copy .fas, .btn-delete .fas, #resetTotale .fas, .closeNote .fas{
+	     font-size:18px;
+	}
+}  
+
+
+
+
+
+
+
+
+
+
+
+
+/****************** RESPONSIVE *******************/
+
+@media all and (max-width: 1300px) {
+	header .container, main, footer{
+		padding-left:20px;
+		padding-right:20px;
+	}
+}
+
+@media all and (max-width: 1200px) {
+	header h1 {
+		font-size: 50px;
+	}
+	#logo {
+		width: 110px;
+	}
+	h2 {
+    	font-size: 30px;
+	}
+	main {
+		min-height: calc(100vh - 209px);
+	}
+}
+
+@media all and (max-width: 900px) {
+	header h1 {
+		font-size: 40px;
+	}
+	#logo {
+		width: 100px;
+	}
+	h2 {
+    	font-size: 25px;
+	}
+	main {
+		min-height: calc(100vh - 199px);
+	}
+}
+
+@media all and (max-width: 700px) {
+	header h1 {
+		font-size: 25px;
+		display: block;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 0px;
+	}
+	h2 {
+    	font-size: 20px;
+	}
+	
+	h3{
+		font-size:18px;
+	}
+
+	#logo {
+		width: 80px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	header .container {
+		padding: 25px 10px;
+	}
+	main, footer{
+		padding-left:10px;
+		padding-right:10px;
+	}
+	main {
+		min-height: calc(100vh - 235px);
+	}
+	.calcoloSingolaPergamena {
+    	padding: 10px;
+	}
+	.calcoloCostoPergamene {
+		padding: 20px 0px;
+	}
+	input.pergamene {
+		width: 90px;
+	}
+	form fieldset:nth-child(2) {
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+	label{
+		font-size:13px;
+	}
+	.costoTempo span, .totali span{
+		line-height:1;
+		font-size:13px;
+	}
+	input.pergamene, .costoTempo .costoPergamena, .costoTempo .tempoNecessario, .costoTempo .tempoNecessario2, .costoPergamenaTot, .tempoNecessarioTot {
+		font-size: 20px;
+	}
+	.costoTempo .costoPergamena, .costoTempo .tempoNecessario, .costoTempo .tempoNecessario2, .costoPergamenaTot, .tempoNecessarioTot {
+		height:36px;
+		padding-top:4px;
+	}
+	.mobile{
+		display:block!important;
+	}
+	.costoTempo > div {
+		width: 100px;
+		margin-left:5px;
+		margin-right:5px;
+	}
+	.btn-copy {
+		bottom: 58px;
+		right: 3px;
+		width: 35px;
+		height: 35px;
+	}
+	.btn-delete {
+		right: auto;
+		left: 5px;
+		bottom: 58px;
+		width: 35px;
+		height: 35px;
+	}
+	#resetTotale {
+		width: 40px;
+		height: 40px;
+		margin-left: calc(50% + 45px);
+		margin-top: -45px;
+	}
+	
+	#note{
+		padding:20px;
+		width:300px;
+		transform: translate(-300px);
+	}
+	#note.capolino {
+		transform: translate(-300px);
+	}
+	#note.noteVisibili {
+		transform: translate(0px);
+	}
+	.btn-note {
+		top:45px;
+		width: 35px;
+		height: 45px;
+		transform: translate(33px);
+		font-size:18px;
+	}
+
+}

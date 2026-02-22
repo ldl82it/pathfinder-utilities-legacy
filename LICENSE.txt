@@ -1,0 +1,12 @@
+Copyright (c) 2026 ldl82it
+
+All rights reserved.
+
+This repository is made publicly available for portfolio and educational purposes only.
+
+Permission is granted to view and study the source code.  
+No permission is granted to use, copy, modify, merge, publish, distribute, sublicense,
+or sell copies of the software, in whole or in part, without explicit written permission
+from the author.
+
+For permissions or inquiries, please contact the author.
