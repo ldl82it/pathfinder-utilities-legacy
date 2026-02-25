@@ -1,16 +1,50 @@
-# Pathfinder Utilities — Legacy v1
+# Pathfinder Utilities — Scroll Crafting Calculator (Pathfinder 1e)
 
-Versione **storica (v1)** della webapp “Pathfinder Utilities” (calcolatore per crafting pergamene).
-Questa repository è pensata per uso **portfolio**.
+Pathfinder Utilities is a **client-side web utility** to calculate the **crafting cost** and **crafting time** for scrolls in **Pathfinder RPG 1e**.
 
-## Come usarla
-- Apri `index.html` (Italiano) o `scrolls-creation-en.html` (English) in un browser.
-- Consigliato: avvia un piccolo server statico per evitare problemi di path/cache.
+Rules reference (Italian wiki):
+- https://golarion.altervista.org/wiki/Pergamene
+- https://golarion.altervista.org/wiki/Scrivere_Pergamene
 
-Esempi:
-- Python: `python -m http.server 8000`
-- XAMPP: metti la cartella in `htdocs/` e apri `http://localhost/...`
+---
 
-## Note
-- Nessun tracciamento/analytics inclusi in questa versione “pulita”.
-- Dipendenze esterne via CDN: jQuery, Font Awesome, Google Fonts.
+## Tech stack
+
+- **HTML + CSS (variables) + JavaScript (vanilla)**
+- **ES Modules** (`<script type="module">`)
+- No frameworks, no libraries
+
+---
+
+## Local development
+
+**Option A — XAMPP/Apache**
+
+Place the project folder under `htdocs` and open:
+```
+http://localhost/<folder-name>/
+```
+
+**Option B — Python**
+
+```bash
+python -m http.server 8080
+```
+
+Then open `http://localhost:8080/` in the browser.
+
+---
+
+## Manual verification
+
+1. Open `index.html` in the browser (via local server above).
+2. Enter a Caster Level and Spell Level, click **Calcola**.
+3. Verify cost and time values update correctly.
+4. Toggle language (IT/EN) and theme — values and labels should switch.
+5. Add/remove scroll rows and verify totals recalculate.
+
+---
+
+## License
+
+See `LICENSE.txt`.

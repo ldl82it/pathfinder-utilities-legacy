@@ -1,0 +1,444 @@
+/* ============================================
+   PATHFINDER UTILITIES — LAYOUT SHELL
+   Header capsule + Main responsive + Background
+   ============================================ */
+
+/* ==========================================
+   BACKGROUND (vincolante)
+   ========================================== */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    /* fallback browser datati */
+    min-height: 100dvh;
+    /* fix address bar jump mobile */
+    overflow-x: hidden;
+}
+
+/* Background container */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    /* Gradient soft (Ivory → warm neutrals) */
+    background: linear-gradient(135deg,
+            var(--color-bg) 0%,
+            var(--color-neutral-1) 50%,
+            var(--color-neutral-2) 100%);
+}
+
+
+/* Magical circle overlay (rotazione lentissima) */
+.magical-circle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120vh;
+    height: 120vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.2;
+    background-image: url('data:image/svg+xml,%3Csvg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="400" cy="400" r="399" stroke="%23AD8F4F" stroke-width="1" stroke-opacity="0.15"/%3E%3Cpath d="M400 10L790 400L400 790L10 400L400 10Z" stroke="%23AD8F4F" stroke-width="1" stroke-opacity="0.15"/%3E%3Ccircle cx="400" cy="400" r="300" stroke="%23AD8F4F" stroke-width="1" stroke-opacity="0.15"/%3E%3Cpath d="M400 100L660 550H140L400 100Z" stroke="%23AD8F4F" stroke-width="1" stroke-opacity="0.15"/%3E%3Ccircle cx="400" cy="400" r="150" stroke="%23AD8F4F" stroke-width="1" stroke-opacity="0.15"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    animation: rotate-slow 120s linear infinite;
+}
+
+@keyframes rotate-slow {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Blob blur accenti (rosso e oro agli angoli) */
+.blob-red {
+    position: fixed;
+    top: -10%;
+    left: -5%;
+    width: 24rem;
+    height: 24rem;
+    background: var(--color-primary);
+    opacity: 0.05;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.blob-gold {
+    position: fixed;
+    bottom: -10%;
+    right: -5%;
+    width: 30rem;
+    height: 30rem;
+    background: var(--color-secondary);
+    opacity: 0.1;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   HEADER CAPSULE (navbar)
+   ========================================== */
+
+header {
+    width: 100%;
+    padding: var(--space-lg) var(--space-lg);
+    position: relative;
+    z-index: var(--z-sticky);
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+}
+
+/* Brand capsule (sinistra) */
+.brand-capsule {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    padding: var(--space-sm) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    box-shadow: none;
+}
+
+.brand-capsule h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    letter-spacing: normal;
+    line-height: 1.1;
+    margin: 0;
+}
+
+/* Controls capsule (destra: lingua + tema) */
+.controls-capsule {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-xs) var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    box-shadow: 0 10px 40px -10px rgba(140, 33, 49, 0.05);
+}
+
+.lang-toggle {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-full);
+    padding: var(--space-xs);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.lang-toggle button {
+    padding: var(--space-sm) var(--space-md);
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    transition: all var(--transition-base);
+    background: transparent;
+    color: var(--color-text);
+    opacity: 0.5;
+}
+
+.lang-toggle button.active {
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-primary);
+    opacity: 1;
+}
+
+.lang-toggle button:hover {
+    background: var(--color-secondary);
+    color: white;
+}
+
+/* Divider (vertical line separator) */
+.divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0 var(--space-sm);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    padding: var(--space-xs);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    transition: all var(--transition-base);
+    border-radius: var(--radius-sm);
+    width: 2.75rem;
+    /* 44px — touch target minimo */
+    height: 2.75rem;
+    /* 44px — touch target minimo */
+    opacity: 0.6;
+}
+
+.theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.theme-toggle .material-symbols-outlined {
+    font-size: 20px;
+}
+
+
+/* ==========================================
+   MAIN LAYOUT (responsive)
+   ========================================== */
+
+main {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-lg);
+    position: relative;
+    z-index: var(--z-base);
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Desktop: 2 colonne (form sinistra + summary destra) */
+@media (min-width: 1024px) {
+    .main-container {
+        flex-direction: row;
+        max-width: 1080px;
+        gap: var(--space-2xl);
+        align-items: flex-start;
+    }
+
+    .form-column {
+        flex: 1.4;
+        max-width: 640px;
+    }
+
+    .summary-column {
+        flex: 0.8;
+        max-width: 280px;
+        position: sticky;
+        top: var(--space-xl);
+    }
+}
+
+/* Mobile: stacked */
+@media (max-width: 1023px) {
+
+    .form-column,
+    .summary-column {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+footer {
+    padding: var(--space-lg);
+    padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom, 0px));
+    text-align: center;
+    font-size: var(--font-size-meta);
+    color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: var(--z-base);
+}
+
+footer a {
+    color: inherit;
+    transition: color var(--transition-base);
+}
+
+footer a:hover {
+    color: var(--color-primary);
+}
+
+
+/* ==========================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+    header {
+        padding: var(--space-md);
+    }
+
+    .brand-capsule h1 {
+        font-size: 2rem;
+    }
+
+    main {
+        padding: var(--space-md);
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    header {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .header-container {
+        flex-wrap: wrap;
+    }
+
+    .brand-capsule {
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .brand-capsule h1 {
+        font-size: 1.3rem;
+        max-width: 5.5em;
+    }
+
+    main {
+        padding: var(--space-sm);
+    }
+
+    .blob-red,
+    .blob-gold {
+        display: none;
+        /* Rimuovi blob su mobile per performance */
+    }
+}
+
+
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+/* Contenitore per background elements */
+.bg-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Flex container per layout */
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* fallback browser datati */
+    min-height: 100dvh;
+    /* fix address bar jump mobile */
+}
+
+/* ==========================================
+   DARK THEME — Layout Overrides
+   ========================================== */
+
+/* Background gradient dark */
+.dark-theme::before {
+    background-color: hsla(30, 20%, 8%, 1);
+    background-image:
+        radial-gradient(circle at 91% 11%, hsla(350, 63%, 25%, 0.2) 4%, transparent 37%),
+        radial-gradient(circle at 66% 37%, hsla(39, 41%, 35%, 0.18) 0%, transparent 63%),
+        radial-gradient(circle at 36% 87%, hsla(0, 0%, 0%, 0.8) 12%, transparent 63%);
+    background-blend-mode: normal, normal, normal;
+}
+
+/* Magical circle — più visibile su sfondo scuro */
+.dark-theme .magical-circle {
+    opacity: 0.12;
+}
+
+/* Blobs — più visibili */
+.dark-theme .blob-red {
+    opacity: 0.08;
+}
+
+.dark-theme .blob-gold {
+    opacity: 0.12;
+}
+
+/* Constellation dots su dark */
+.dark-theme::after {
+    opacity: 0.2;
+}
+
+/* Lang toggle */
+.dark-theme .lang-toggle {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .lang-toggle button {
+    color: var(--color-text);
+}
+
+.dark-theme .lang-toggle button.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--color-secondary);
+}
+
+/* Divider */
+.dark-theme .divider {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Theme toggle */
+.dark-theme .theme-toggle {
+    color: var(--color-text);
+}
+
+.dark-theme .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Footer */
+.dark-theme footer {
+    color: rgba(255, 255, 255, 0.35);
+}

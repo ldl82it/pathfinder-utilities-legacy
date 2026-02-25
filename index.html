@@ -1,146 +1,313 @@
 <!DOCTYPE html>
-<html lang="it-IT">
+<html lang="it">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no"  />
+    <title>Pathfinder Utilities – Calcolatore Costo Pergamene (PF1)</title>
+    <meta name="description"
+        content="Calcolatore gratuito per il costo e il tempo di crafting delle pergamene magiche. Pathfinder RPG Prima Edizione, regole Golarion.">
 
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-touch-fullscreen" content="yes" />
-<meta name="apple-mobile-web-app-title" content="Pathfinder Utilities" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-<link rel="shortcut icon" href="img/favicon.ico" />
+    <!-- Google Fonts: Inter (body/UI) + Noto Serif (display/headings) -->
+    <link rel="stylesheet" href="css/fonts.css">
 
-<link rel="stylesheet" type="text/css" href="css/reset.css"/>
-<link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <!-- Material Symbols (for icons) -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<title>PATHFINDER UTILITIES</title>
-<meta name="description" content="Pathfinder Utilities - Calcolatore Crafting Pergamene" />
+    <!-- Icons -->
+    <link rel="icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/global.js"></script>
-
+    <!-- Styles: variables → reset → layout → style -->
+    <link rel="stylesheet" type="text/css" href="css/variables.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="schedaPrincipale">
+<body class="flex-container">
 
-    <aside id="note">
-   	    <button class="btn-note vibraTasti"><i class="fas fa-asterisk"></i><i class="fas fa-times hidden"></i></button>
-        <!--<button class="closeNote"><i class="fas fa-times"></i></button>-->
-        <h3> NOTE E REGOLAMENTO </h3>
-        <p>La creazione di un oggetto richiede 8 ore di lavoro per 1.000 mo del prezzo base dell'oggetto (o frazione di esso), con un minimo di almeno 8 ore. Pozioni e pergamene sono un'eccezione a questa regola; possono impiegare solo 2 ore per essere creati (se il loro prezzo base è 250 mo o meno). Pergamene e pozioni il cui prezzo base è superiore a 250 mo, ma inferiore a 1.000 mo, richiedono 8 ore per essere create, proprio come qualsiasi altro oggetto magico.</p>
-        <a href="https://golarion.altervista.org/wiki/Creare_Oggetti_Magici" target="_blank" title="Golarion - Creazione Oggetti Magici"><i class="fas fa-external-link-alt"></i> CREAZIONE OGGETTI MAGICI</a>
+    <!-- Background elements -->
+    <div class="bg-container">
+        <div class="magical-circle"></div>
+        <div class="blob-red"></div>
+        <div class="blob-gold"></div>
+
+        <!-- Magical particles -->
+        <div class="magic-particles">
+            <span class="particle" style="--x: 15%; --delay: 0s; --duration: 12s; --size: 3px;"></span>
+            <span class="particle" style="--x: 35%; --delay: 2s; --duration: 15s; --size: 2px;"></span>
+            <span class="particle" style="--x: 55%; --delay: 4s; --duration: 11s; --size: 4px;"></span>
+            <span class="particle" style="--x: 75%; --delay: 1s; --duration: 14s; --size: 2px;"></span>
+            <span class="particle" style="--x: 90%; --delay: 3s; --duration: 13s; --size: 3px;"></span>
+            <span class="particle" style="--x: 25%; --delay: 5s; --duration: 16s; --size: 2px;"></span>
+            <span class="particle" style="--x: 65%; --delay: 7s; --duration: 12s; --size: 3px;"></span>
+            <span class="particle" style="--x: 45%; --delay: 6s; --duration: 14s; --size: 2px;"></span>
+            <span class="particle" style="--x: 82%; --delay: 8s; --duration: 11s; --size: 4px;"></span>
+            <span class="particle" style="--x: 10%; --delay: 9s; --duration: 15s; --size: 2px;"></span>
+            <span class="particle" style="--x: 50%; --delay: 3.5s; --duration: 13s; --size: 3px;"></span>
+            <span class="particle" style="--x: 70%; --delay: 6.5s; --duration: 16s; --size: 2px;"></span>
+        </div>
+    </div>
+
+    <!-- FAB Button (fixed bottom-right) -->
+    <button class="btn-note btn-note--dark" data-action="open-notes" aria-label="Apri Note e Regolamento">
+        <span class="material-symbols-outlined">menu_book</span>
+    </button>
+
+    <!-- Note panel (slide drawer from right) -->
+    <aside id="note" data-hook="notes-panel">
+        <div class="note-header">
+            <h3 class="note-title" data-i18n="notesTitle">NOTE E REGOLAMENTO</h3>
+            <button class="note-close" data-action="close-notes" type="button" aria-label="Chiudi">
+                ✕
+            </button>
+        </div>
+        <div class="note-body">
+            <p data-i18n="notesBody">La creazione di un oggetto richiede 8 ore di lavoro per 1.000 mo del prezzo base
+                dell'oggetto (o frazione di esso), con un minimo di almeno 8 ore. Pozioni e pergamene sono un'eccezione
+                a questa regola; possono impiegare solo 2 ore per essere creati (se il loro prezzo base è 250 mo o
+                meno). Pergamene e pozioni il cui prezzo base è superiore a 250 mo, ma inferiore a 1.000 mo, richiedono
+                8 ore per essere create, proprio come qualsiasi altro oggetto magico.</p>
+            <a href="https://golarion.altervista.org/wiki/Creare_Oggetti_Magici" target="_blank"
+                rel="noopener noreferrer" title="Golarion - Creazione Oggetti Magici"><span
+                    class="material-symbols-outlined">open_in_new</span>
+                <span data-i18n="notesLink">CREAZIONE OGGETTI MAGICI</span></a>
         </div>
     </aside>
 
-	<header>
-    	<section class="container">
-            <img src="img/pathfinder-utilities-logo.png" alt="Pathfinder Utilites Logo" id="logo">
-            <h1> PATHFINDER UTILITIES </h1>
-        </section>
-    </header>
-    
-    <main>
-    
-    	<section class="calcoloCostoPergamene">
-    
-            <h2 class="titolettoSezione"> CALCOLO COSTO CRAFTING PERGAMENE </h2>
-        
-            <section class="calcoloSingolaPergamena" id="sezionePerg-0">
-                <form>
-                    <fieldset>
-                        <label>LvL Caster</label>
-                        <input name="livelloCaster" class="livelloCaster pergamene" type="number" min="0" max="30" />
-                    </fieldset>
-                    
-                    <fieldset>
-                        <label>LvL Spell</label>
-                        <input name="livelloSpell" class="livelloSpell pergamene" type="number" min="0" max="9" />
-                    </fieldset>
-                    
-                    <fieldset>
-                        <label>N Pergamene</label>
-                        <input name="numeroPergamene" class="numeroPergamene pergamene" type="number" min="0" max="100" value="1" />
-                    </fieldset>
-                
-                </form>
-        
-                    <section class="costoTempo">
-                        <div>
-                            <span>Costo</span> 
-                            <div class="costoPergamena"></div>
-                        </div>
-                        
-                        <div>
-                            <span>Ore*</span> 
-                            <div class="tempoNecessario"></div> 
-                         </div> 
-                         
-                         <div>   
-                            <span>Tempo*</span>
-                            <div class="tempoNecessario2"></div>                              
-                        </div> 
-                               
-                    </section>
-                    
-               	    <button class="btn-delete vibraTasti"><i class="far fa-trash-alt"></i><span class="tooltip">Rimuovi tipo pergamena</span></button>
-                    <button class="btn-copy vibraTasti"><i class="fas fa-plus"></i><span class="tooltip">Aggiungi tipo pergamena</span></button>
-                
-            </section>
-        
-            <button class="calcolaCosto vibraTasti" id="calcolaCosto" title="Calcola costo pergamena"> <i class="fas fa-pen-fancy"></i> <span class="tooltip">Calcola costi e tempi</span></button>
-            <button class="resetTotale vibraTasti" id="resetTotale"> <i class="fas fa-power-off"></i> <span class="tooltip">Reset</span> </button>
-            
-            <div class="totali">
-            	<div>
-            		<span>Costo Totale</span> 
-                    <div id="costoPergamenaTot" class="costoPergamenaTot"></div>
-                </div>
-                <div>
-            		<span>Ore Totali</span> 
-                    <div id="tempoNecessarioTot" class="tempoNecessarioTot"></div> 
-                </div>
+    <!-- Header capsule -->
+    <header>
+        <div class="header-container">
+            <div class="brand-capsule">
+                <img src="img/pathfinder-utilities-logo.png" alt="Pathfinder Utilities Logo" class="brand-logo">
+                <h1>Pathfinder Utilities</h1>
             </div>
-        
-        </section>
-    
-    </main>
-    
-    <footer>
-    <span>Portfolio demo — Pathfinder Utilities (legacy v1)</span>
-</footer>
+            <div class="controls-capsule">
+                <div class="lang-toggle" data-hook="lang-toggle">
+                    <button data-action="set-lang" data-lang="en" aria-label="Switch to English">EN</button>
+                    <button data-action="set-lang" data-lang="it" class="active"
+                        aria-label="Passa all'italiano">IT</button>
+                </div>
+                <div class="divider"></div>
+                <button class="theme-toggle" data-action="toggle-theme" aria-label="Toggle theme">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-    <aside id="selettoreLingua">
-        <a href="scrolls-creation-en.html" target="_self" title="English Language"><img src="img/enFlag.jpg" alt="English Language"></a>
+    <!-- Main content -->
+    <main>
+        <div class="main-container">
+            <!-- Form column -->
+            <div class="form-column">
+                <form id="formPergamene" class="card-glass" data-hook="scroll-form">
+
+                    <!-- Header -->
+                    <div class="header-box">
+                        <div class="header-icon-box">
+                            <span class="material-symbols-outlined">edit_note</span>
+                        </div>
+                        <div class="header-title-group">
+                            <h2 data-i18n="cardTitle">Trascrizione Pergamene</h2>
+                            <p data-i18n="cardSubtitle">Configura parametri arcani</p>
+                        </div>
+                    </div>
+
+                    <!-- Scroll Row (Clone Target) -->
+                    <div id="sezionePerg-0" class="calcoloSingolaPergamena" data-hook="scroll-row">
+                        <section class="scroll-row">
+                            <div class="input-grid">
+                                <fieldset>
+                                    <label for="caster-0" data-i18n="casterLevel">Livello Incantatore</label>
+                                    <input id="caster-0" name="livelloCaster" class="livelloCaster input-glass"
+                                        data-hook="caster-input" type="number" min="1" max="20" placeholder="1" />
+                                    <div class="field-helper" data-i18n="casterHelper">Livello 1/20</div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <label for="spell-0" data-i18n="spellLevel">Livello Incantesimo</label>
+                                    <input id="spell-0" name="livelloSpell" class="livelloSpell input-glass"
+                                        data-hook="spell-input" type="number" min="0" max="9" placeholder="1" />
+                                    <div class="field-helper" data-i18n="spellHelper">0 - 9</div>
+                                </fieldset>
+
+                                <fieldset class="field field--readonly">
+                                    <div class="field-label-row">
+                                        <label class="field-label" id="scribingLabel-0"
+                                            data-i18n="scribingSpeed">Velocità scrittura</label>
+                                        <span class="field-meta" data-i18n="scribingSpeedMeta">(ore/giorno)</span>
+                                    </div>
+                                    <div class="input-glass input-glass--readonly" role="textbox" aria-readonly="true"
+                                        aria-labelledby="scribingLabel-0">
+                                        <span class="material-symbols-outlined icon-schedule">schedule</span>
+                                        <span class="readonly-value">8</span>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <label for="quantity-0" data-i18n="quantity">N Pergamene</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="material-symbols-outlined input-icon">layers</span>
+                                        <input id="quantity-0" name="numeroPergamene"
+                                            class="numeroPergamene input-glass" data-hook="quantity-input" type="number"
+                                            min="1" max="30" value="1" />
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <!-- Partial Outputs (Discreet) -->
+                            <div class="row-partials">
+                                <div class="partial-item">
+                                    <span class="partial-label" data-i18n="partialCost">Costo parziale</span>
+                                    <span class="costoPergamena partial-value" data-hook="partial-cost">0<span
+                                            class="partial-unit" data-i18n="unitCost">MO</span></span>
+                                </div>
+                                <div class="partial-item">
+                                    <span class="partial-label" data-i18n="partialTime">Tempo parziale</span>
+                                    <span class="tempoNecessario partial-value" data-hook="partial-time">0<span
+                                            class="partial-unit" data-i18n="unitTime">Ore</span></span>
+                                </div>
+                            </div>
+                            <!-- Hidden intermediate value for JS calculations -->
+                            <div class="tempoNecessario2 hidden" data-hook="partial-time-effective"></div>
+
+                            <!-- Hidden original buttons (kept for JS hooks) -->
+                            <div class="hidden-controls">
+                                <button type="button" class="btn-copy hidden-proxy"
+                                    data-action="clone-row">ADD_PROXY</button>
+                                <button type="button" class="btn-delete hidden-proxy"
+                                    data-action="delete-row">DEL_PROXY</button>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Card Footer Row -->
+                    <div class="calculate-row">
+                        <div class="card-footer-left">
+                            <div class="card-footer-info">
+                                <span class="material-symbols-outlined icon-sm icon-gold">info</span>
+                                <span data-i18n="footerInfo">Regolamento standard Pathfinder.</span>
+                            </div>
+                            <button type="button" class="btn-delete btn-remove-link" data-action="remove-last-row"
+                                title="Rimuovi pergamena" aria-label="Rimuovi ultima pergamena">
+                                <span class="material-symbols-outlined icon-lg">remove_circle</span>
+                                <span data-i18n="removeScroll">Rimuovi pergamena</span>
+                            </button>
+                        </div>
+                        <button type="button" class="btn-primary btn-calculate" data-action="calculate"
+                            id="calcolaCosto" title="Calcola costo" aria-label="Calcola costo pergamene">
+                            <span class="icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15 4V2" />
+                                    <path d="M15 16v-2" />
+                                    <path d="M8 9h2" />
+                                    <path d="M20 9h2" />
+                                    <path d="M17.8 11.8 19 13" />
+                                    <path d="M15 9h0" />
+                                    <path d="M17.8 6.2 19 5" />
+                                    <path d="m3 21 9-9" />
+                                    <path d="M12.2 6.2 11 5" />
+                                </svg>
+                            </span>
+                            <span data-i18n="calculate">Calcola</span>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Totals Fallback (Hidden on Desktop via CSS) -->
+                    <div class="totali">
+                        <div><label data-i18n="totalCostTitle">Costo Totale</label>
+                            <div class="output-value" data-hook="total-cost-mobile"></div>
+                        </div>
+                        <div><label data-i18n="totalTimeLabel">Ore Totali</label>
+                            <div class="output-value" data-hook="total-time-mobile"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- RIGHT COLUMN: Summary -->
+            <div class="summary-column">
+                <div class="summary-card">
+                    <div class="summary-badge">
+                        <span class="material-symbols-outlined">payments</span>
+                    </div>
+
+                    <h3 class="summary-card-title" data-i18n="totalCostTitle">Costo Totale</h3>
+
+                    <div class="summary-value-large">
+                        <span id="costoPergamenaTot" data-hook="total-cost">0</span><span class="currency"
+                            data-i18n="currency">MO</span>
+                    </div>
+
+                    <hr class="summary-divider">
+
+                    <div class="summary-mini-cards summary-mini-cards--single">
+                        <!-- Single column mini-card as per logic (No Base Price) -->
+                        <div class="summary-mini-card">
+                            <div class="summary-mini-card-label" data-i18n="totalTimeLabel">TEMPO DI CREAZIONE TOTALE
+                            </div>
+                            <div id="tempoNecessarioTot" class="summary-mini-card-value" data-hook="total-time">0 Ore
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Another Scroll Button (Proxy) -->
+                <button id="uiAddScroll" class="ui-add-scroll-btn" data-action="add-row"
+                    aria-label="Aggiungi altra pergamena">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <span data-i18n="addScroll">Aggiungi altra pergamena</span>
+                </button>
+
+                <!-- Reset Button (moved here for cleanup) -->
+                <button class="btn-reset-link" id="resetTotale" data-action="reset" title="Reset Calculator"
+                    aria-label="Resetta calcolatore">
+                    <span class="material-symbols-outlined icon-md">refresh</span>
+                    <span data-i18n="reset">Resetta Calcolatore</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+
+        <p data-i18n="copyright">© 2026 Pathfinder Utilities. Realizzato per il mago esigente.</p>
+    </footer>
+
+    <!-- Alert modals (REQUIRED by JS) -->
+    <aside id="alertVari" class="hidden alert-modal" data-hook="alert-modal">
+        <div class="testoAlert invalidInput hidden alert-content">
+            <span class="material-symbols-outlined alert-icon">visibility</span>
+            <h3 data-i18n="alertTitle">TI HO VISTO</h3>
+            <p data-i18n="alertInvalid">Input non validi</p>
+            <button class="btn-retry retryReset btn-icon alert-button" data-action="dismiss-alert"
+                aria-label="Chiudi avviso"><span class="material-symbols-outlined">refresh</span></button>
+        </div>
+
+        <div class="testoAlert lvlSpellAlto hidden alert-content">
+            <span class="material-symbols-outlined alert-icon">visibility</span>
+            <h3 data-i18n="alertTitle">TI HO VISTO</h3>
+            <p data-i18n="alertTooHigh">Non esagerare con i livelli e le pergamene!</p>
+            <button class="btn-retry btn-icon alert-button" data-action="dismiss-alert" aria-label="Chiudi avviso"><span
+                    class="material-symbols-outlined">refresh</span></button>
+        </div>
     </aside>
 
-	<aside id="alertVari" class="hidden">
-    	<div class="testoAlert invalidInput hidden"> 
-            <i class="far fa-eye"></i> 
-            <h3> TI HO VISTO </h3>
-            <p>Input non validi</p>
-            <button class="btn-retry retryReset vibraTasti"><i class="fas fa-redo"></i></button>
-        </div>
-        
-    	<div class="testoAlert lvlSpellAlto hidden"> 
-            <i class="far fa-eye"></i> 
-            <h3> TI HO VISTO </h3>
-            <p>Non esagerare con i livelli e le pergamene!</p>
-            <button class="btn-retry vibraTasti"><i class="fas fa-redo"></i></button>
-        </div>
-          
-     </aside>
-     
-     <audio id="sette" src="audio/sette.mp3" type="audio/mpeg"></audio>  
-     
+    <!-- Easter egg audio (REQUIRED by JS) -->
+    <audio id="sette" src="audio/sette.mp3" type="audio/mpeg" data-hook="easter-egg-audio"></audio>
+
+    <!-- Scripts (ES modules) -->
+    <script type="module" src="js/app.js"></script>
+
+
+
 </body>
 
 </html>

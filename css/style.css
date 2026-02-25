@@ -1,702 +1,1947 @@
-/* VARIABILI */
+/* ============================================
+   PATHFINDER UTILITIES — STYLE (CLEAN)
+   Utility classes + component base styles
+   ============================================ */
 
-*{
-	max-width:100%;
+/* ==========================================
+   UTILITY CLASSES (richieste da JS)
+   ========================================== */
+
+/* Hidden: nasconde elemento */
+.hidden {
+    display: none !important;
 }
 
-* {
-  --main-padding-1: 50px;
-  --nero-opaco-1: rgba(0,0,0,0.6);
-  --grigio-scuro: #a7a7a7;
+/* Error box: bordo rosso per validazione */
+.errorBox {
+    box-shadow: 0px 0px 2px 1px #F00 !important;
+    border-color: #F00 !important;
 }
 
-button:focus{
-	border:0px;
-	outline: 0px;
+/* No scroll: previene scroll su html */
+html.noScroll {
+    overflow: hidden !important;
 }
 
-body{
-	font-family: 'Open Sans', sans-serif;
-	background-color: #00395b;
-	color: white;
-}
-
-body::before{
-	background-color: rgba(0,0,0,0.7);
-	content:'';
-	display:block;
-	width:100%;
-	height:100%;
-	position:fixed;
-	top:0px;
-	left:0px;
-	z-index:5;
-	max-width:0px;
-	transition: all 0.3s ease;
-}
-
-body.oscurato::before{
-	max-width:10000px;
-}
-
-main{
-    width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-	min-height: calc(100vh - 250px);
-}
-
-.hidden{
-	display:none!important;
-}
-
-.mobile{
-	display:none!important;
-}
-
-.errorBox{
-	-webkit-box-shadow: 0px 0px 12px 2px #F00;
-	box-shadow: 0px 0px 12px 2px #F00;
-}
-
-.noScroll{
-	overflow: hidden!important;
-}
-
-
-/* TYPOGRAPHY */
-
-a{
-	text-decoration:none;
-	transition: all 0.5s ease;
-}
-
-a:hover{
-	text-decoration:none;
-}
-
-h1{
-    font-size: 50px;
-    font-weight: 800;
-	letter-spacing:2px;
-	text-align:center;
-	margin-top: 10px;
-	margin-bottom: 20px;
-}
-
-header h1{
-	font-size:65px;
-}
-
-h2{
-    font-size: 35px;
-    font-weight: 800;
-	letter-spacing:2px;
-	text-align:center;
-	margin-top: 10px;
-	margin-bottom: 25px;
-}
-
-h3{
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    font-size: 22px;
-}
-
-
-/************* HEADER ****************/
-
-header{
-    background-color: rgba(0,0,0,0.3);
-}
-
-header .container{
-    width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-#logo{
-	width:150px;	
-}
-
-
-
-/********** CALCOLO COSTO PERGAMENE **********/
-
-.calcoloCostoPergamene{
-	padding:50px 0px;
-	position:relative;
-}
-
-.costoTempo, .totali{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-top: 25px;
-}
-
-.totali{
-	margin-top:50px;
-}
-
-.costoTempo span, .totali span{
-    display: block;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-	text-align:center;
-	margin-bottom: .5rem;
-}
-
-.costoTempo > div, .totali > div{
-    display: block;
-    width: 150px;
-	margin-left:10px;
-	margin-right:10px;
-}
-
-.costoTempo .costoPergamena, .costoTempo .tempoNecessario, .costoTempo .tempoNecessario2, .costoPergamenaTot, .tempoNecessarioTot{
-    background-color: rgba(0,0,0,0.3);
-    width: 150px;
-    height: 31px;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 18px;
-	padding:1px 2px;
-	cursor: not-allowed;
-}
-
-
-#calcolaCosto, #resetTotale, .btn-copy, .btn-delete, .closeNote, .btn-retry{
-    border: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    height: 55px;
-    width: 55px;
-    flex-wrap: wrap;
-    align-content: center;
-    background-color: white;
-	position:relative;
-	cursor:pointer;
-	transition: all 0.2s ease;
-	color: #00395b;
-}
-
-#calcolaCosto:hover, #resetTotale:hover, .btn-copy:hover, .btn-delete:hover, .closeNote:hover{
-	transform:scale(1.1);
-}
-
-#calcolaCosto:active, #resetTotale:active, .btn-copy:active, .btn-delete:active, .closeNote:active, .btn-retry:active{
-	color:white;
-	background-color: #00395b;
-	outline: 0px;
-}
-
-#calcolaCosto .fas{
-    font-size: 35px;
-    color: inherit;
-}
-
-#calcolaCosto .tooltip, #resetTotale .tooltip, .btn-copy .tooltip, .btn-delete .tooltip{
-    position: absolute;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 10px;
-    width: 180px;
-	max-width:180px;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 10px;
-	letter-spacing: 2px;
-    bottom: -30px;
-    padding: 0px;
-    transition: all 0.2s ease;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-	transform:scale(0);
-	font-family: 'Caveat', cursive;
-}
-
-#calcolaCosto:hover .tooltip, #resetTotale:hover .tooltip, .btn-copy:hover .tooltip, .btn-delete:hover .tooltip{
-	transform:scale(1);
-}
-
-.calcoloSingolaPergamena{
-	padding:50px;
-	position:relative;
-    border: 3px solid #00000017;
-}
-
-.calcoloCostoPergamene .calcoloSingolaPergamena:nth-child(odd){
-	background-color: rgba(255,255,255,0.1);
-}
-
-.btn-copy{
-	position:absolute;
-	bottom:15px;
-	right:15px;
-	width: 30px;
-	height: 30px;
-}
-
-.btn-copy .fas, .btn-delete .fas, #resetTotale .fas, .closeNote .fas{
-    font-size:20px;
-	color:inherit;
-}
-
-.btn-copy .tooltip, .btn-delete .tooltip{
-    top: -20px;
-    left: -110px;
-	bottom: auto;
-	width:105px;
-	height:40px;
-	transform-origin:right;
-}
-
-.btn-delete{
-	position:absolute;
-	bottom:55px;
-	right:15px;
-	width: 30px;
-	height: 30px;
-}
-
-#resetTotale{
-	width:30px;
-	height:30px;
-	margin-left: calc(50% + 45px);
-	margin-top: -40px;
-}
-
-#resetTotale .tooltip{
-	width:80px;
-}
-
-#calcolaCosto{
-	margin-left:calc(50% - 27px);
-	margin-top:25px;
-}
-
-
-
-
-
-/********** FORM *************/
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-form{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-form fieldset{
-	padding:0px 10px 10px 10px;
-}
-
-form fieldset:nth-child(2){
-	margin-right:30px;
-	margin-left:30px;
-}
-
-label{
-    display: block;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1;
-	text-align:center;
-}
-
-input.pergamene{
-    border: 0px;
-    width: 110px;
-	text-align:center;
-	font-weight: bold;
-	letter-spacing: 1;
-	font-size: 18px;
-	color: #464646;
-}
-
-input:focus-visible {
-  outline: 3px dashed #0280bd;
-}
-
-#sezionePerg-0 .btn-delete{
-	display:none;
-}
-
-
-/*************** NOTE *****************/
-
-.btn-note{
-	position: absolute;
-	right: 0px;
-	top: 100px;
-	background-color: white;
-	border: 0px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	width: 40px;
-	height: 55px;
-	-webkit-border-top-right-radius: 15px;
-	-webkit-border-bottom-right-radius: 15px;
-	-moz-border-radius-topright: 15px;
-	-moz-border-radius-bottomright: 15px;
-	border-top-right-radius: 15px;
-	border-bottom-right-radius: 15px;
-	padding-left: 8px;
-	font-size: 20px;
-	transform: translate(38px);
-	background-color: #0280bd;
-	color:white;
-	cursor:pointer;
-}
-
-.btn-note .fa-times{
-	font-size:25px;
-}
-
-.closeNote{
-	position: absolute;
-	right: 15px;
-	top: 15px;
-	width:30px;
-	height:30px;
-	color:#0280bd;
-}
-
-#note{
+/* Oscurato: backdrop overlay quando note panel è aperto */
+body.oscurato::after {
+    content: '';
     position: fixed;
-    background-color: #0280bd;
-    padding: 50px;
-    width: 400px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: var(--z-backdrop, 30);
+    pointer-events: auto;
+    transition: opacity var(--transition-base);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-color: hsla(30, 50%, 99%, 1);
+    background-image:
+        radial-gradient(circle at 91% 11%, hsla(350, 63%, 37%, 0.18) 4%, transparent 37%),
+        radial-gradient(circle at 66% 37%, hsla(39, 41%, 49%, 0.25) 0%, transparent 63%),
+        radial-gradient(circle at 36% 87%, hsla(25, 30%, 90%, 1) 12%, transparent 63%);
+    background-blend-mode: normal, normal, normal;
+}
+
+
+/* ==========================================
+   COMPONENT BASE STYLES
+   ========================================== */
+
+/* Glass panel (card principale) */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+/* Card glass (form card) */
+.card-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    animation: arcane-pulse 4s ease-in-out infinite;
+}
+
+@keyframes arcane-pulse {
+
+    0%,
+    100% {
+        box-shadow:
+            var(--shadow-lg),
+            0 0 0 0 rgba(173, 143, 79, 0);
+        border-color: var(--glass-border);
+    }
+
+    50% {
+        box-shadow:
+            var(--shadow-lg),
+            0 0 30px 2px rgba(173, 143, 79, 0.15),
+            0 0 60px 4px rgba(173, 143, 79, 0.08),
+            inset 0 0 20px 0 rgba(173, 143, 79, 0.04);
+        border-color: rgba(173, 143, 79, 0.4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-glass {
+        animation: none;
+    }
+}
+
+/* Input glass */
+.input-glass {
+    width: 100%;
+    height: var(--input-height);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--input-radius);
+    padding: var(--input-padding-y) var(--input-padding-x);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    transition: all var(--transition-base);
+}
+
+.input-glass:focus {
+    background: var(--input-bg-focus);
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 var(--input-ring-width) var(--input-ring-color);
+    outline: none;
+}
+
+.input-glass::placeholder {
+    opacity: 0.4;
+}
+
+/* Button primary */
+.btn-primary {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border: none;
+    border-radius: var(--btn-primary-radius);
+    padding: var(--space-sm) var(--space-lg);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-body);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--btn-primary-shadow);
+}
+
+.btn-primary:hover {
+    background: var(--btn-primary-bg-hover);
+    transform: scale(var(--btn-scale-hover));
+}
+
+.btn-primary:active {
+    transform: scale(var(--btn-scale-active));
+}
+
+/* Button icon (circular) */
+.btn-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    color: var(--color-text);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-icon:active {
+    transform: scale(0.95);
+}
+
+
+/* ==========================================
+   CALCULATOR SPECIFIC STYLES
+   ========================================== */
+
+/* Calculation row container */
+/* Calculation row container */
+.calcoloSingolaPergamena {
+    position: relative;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+/* Divisore arcano tra righe di pergamene (appare solo dalla seconda in poi) */
+.calcoloSingolaPergamena+.calcoloSingolaPergamena {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+}
+
+.calcoloSingolaPergamena+.calcoloSingolaPergamena::before {
+    content: '✦';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    opacity: 0.5;
+    display: block;
+    text-align: center;
+    z-index: 1;
+}
+
+/* Linea orizzontale dietro il simbolo */
+.calcoloSingolaPergamena+.calcoloSingolaPergamena::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(173, 143, 79, 0.3) 30%,
+            rgba(173, 143, 79, 0.5) 50%,
+            rgba(173, 143, 79, 0.3) 70%,
+            transparent 100%);
+}
+
+/* Form layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+/* Output display */
+.output-value {
+    background: rgba(0, 0, 0, 0.1);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-label);
+    text-align: center;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: not-allowed;
+}
+
+/* Totals section */
+.totali {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--glass-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.totali>div {
+    text-align: center;
+}
+
+.totali label {
+    display: block;
+    font-size: var(--font-size-meta);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+    opacity: 0.7;
+}
+
+.totali .output-value {
+    min-width: 150px;
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    font-size: var(--font-size-card-title);
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+    .calcoloSingolaPergamena {
+        padding: var(--space-md);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .totali {
+        padding: var(--space-lg);
+    }
+}
+
+@media (max-width: 640px) {
+    .calcoloSingolaPergamena {
+        padding: var(--space-sm);
+    }
+
+    .totali {
+        padding: var(--space-md);
+    }
+}
+
+/* ==========================================
+   NOTES DRAWER (FAB + PANEL)
+   ========================================== */
+
+/* FAB Button (fixed bottom-right) */
+.btn-note {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: var(--shadow-btn-glow);
+    transition: all var(--transition-base);
+    z-index: var(--z-fab);
+}
+
+.btn-note:hover {
+    background: var(--color-primary-hover);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px 0 rgba(140, 33, 49, 0.5);
+}
+
+.btn-note:active {
+    transform: scale(0.95);
+}
+
+.btn-note:focus {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+}
+
+/* Slide Panel (drawer from right) */
+#note {
+    position: fixed;
+    top: 0;
+    right: 0;
     height: 100vh;
-    top: 0px;
-    left: 0px;
-    font-size: 13px;
-    line-height: 1.8;
-	z-index:10;
-	transform: translate(-400px);
-	transition: all 0.5s ease;
-	overflow: visible;
+    /* fallback browser datati */
+    height: 100dvh;
+    /* fix address bar jump mobile */
+    width: min(var(--panel-width-desktop), 92vw);
+    z-index: var(--z-panel);
+
+    /* Glass effect */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-left: 1px solid var(--color-secondary);
+    box-shadow: var(--shadow-xl);
+
+    /* Transform & transition */
+    transform: translateX(100%);
+    transition: transform var(--transition-slow);
+
+    /* Flex layout */
+    display: flex;
+    flex-direction: column;
 }
 
-#note.capolino{
-	transform: translate(-380px);
+/* Mobile: full width */
+@media (max-width: 640px) {
+    #note {
+        width: var(--panel-width-mobile);
+    }
 }
 
-#note.noteVisibili{
-	transform: translate(0px);
+/* Open state */
+#note.is-open {
+    transform: translateX(0);
 }
 
-#note a{
-	color:white;
-	font-weight:bold;
-	text-transform:uppercase;
+/* Panel Header */
+#note .note-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    border-bottom: 1px solid rgba(173, 143, 79, 0.2);
+    flex-shrink: 0;
 }
 
-#note a:hover{
-	color:#00395b;
+#note .note-title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: 1.125rem;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+    margin: 0;
 }
 
-#note a .fas{
-    font-size: 13px;
-    margin-right: 5px;
+#note .note-close {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(173, 143, 79, 0.3);
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    transition: all var(--transition-base);
 }
 
-
-
-/************ CAMBIO LINGUA ***********/
-
-#selettoreLingua {
-    background-color: rgba(0,0,0,0.6);
-    display: block;
-    padding: 15px 5px 15px 10px;
-    position: absolute;
-    right: 0px;
-    bottom: 10vh;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+#note .note-close:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--color-secondary);
+    transform: scale(1.05);
 }
 
-#selettoreLingua img{
-    border-style: none;
-    height: 18px;
-    display: block;
+#note .note-close:active {
+    transform: scale(0.95);
 }
 
+/* Panel Body (scrollable content) */
+#note .note-body {
+    padding: var(--space-md);
+    overflow-y: auto;
+    flex-grow: 1;
+    line-height: var(--line-height-relaxed);
+}
 
-
-
-
-/*********** FOOTER ***************/
-
-footer{
-    text-align: center;
-    padding: 20px;
-    font-size: 10px;
+#note .note-body h3 {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: white;
-    background-color: rgba(0,0,0,0.6);
+    letter-spacing: 0.05em;
 }
 
-footer a{
-	color:white;
+#note .note-body p {
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+    font-size: var(--font-size-body);
 }
 
-footer a:hover{
-	color:#0280bd;
+#note .note-body a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    transition: color var(--transition-base);
 }
 
+#note .note-body a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
 
-
-
-/********************* ALERT VARI ****************/
-
-#alertVari{
+/* Overlay (backdrop when drawer is open) */
+body.oscurato::after {
+    content: '';
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--backdrop-bg);
+    backdrop-filter: blur(var(--backdrop-blur));
+    -webkit-backdrop-filter: blur(var(--backdrop-blur));
+    z-index: var(--z-overlay);
+    pointer-events: auto;
+    transition: opacity var(--transition-base);
+}
+
+/* ==========================================
+   CALCULATOR LAYOUT COMPONENTS
+   ========================================== */
+
+/* Glass card wrapper (main calculator card) */
+.calculator-card {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+}
+
+/* Page title (h2 in calculator) */
+.page-title {
+    font-size: var(--font-size-card-title);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+}
+
+/* Output row (Cost/Hours/Time) */
+.output-row {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-top: var(--space-lg);
+}
+
+/* Output label */
+.output-label {
+    display: block;
+    font-size: var(--font-size-meta);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    margin-bottom: var(--space-xs);
+    text-align: center;
+}
+
+/* Action buttons row (delete/copy on scroll card) */
+.scroll-actions {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    margin-top: var(--space-md);
+}
+
+.scroll-actions.right {
+    left: auto;
+    right: 1rem;
+}
+
+/* Calculate & Reset buttons row */
+.main-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+}
+
+/* Calculate button (large circular) */
+
+
+/* Reset button */
+.btn-reset {
+    width: 40px;
+    height: 40px;
+    margin: var(--space-md) auto;
+    display: block;
+}
+
+/* Hidden proxy buttons (for JS hooks only) */
+.hidden-proxy {
+    display: none !important;
+}
+
+/* Brand logo */
+.brand-logo {
+    height: 3.5rem;
+}
+
+
+/* ==========================================
+   SUMMARY COLUMN (DESKTOP RIGHT SIDEBAR)
+   ========================================== */
+
+.summary-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+/* Summary card */
+.summary-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.summary-card-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-regular);
+    /* 400, non bold */
+    font-style: italic;
+    color: var(--color-text);
+    text-transform: none;
+    /* non uppercase */
+    letter-spacing: normal;
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.summary-item {
+    margin-bottom: var(--space-lg);
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-item-label {
+    font-size: var(--font-size-meta);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+}
+
+.summary-item-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-align: center;
+}
+
+/* Mobile: summary below form */
+@media (max-width: 1023px) {
+    .summary-column {
+        width: 100%;
+        margin-top: var(--space-xl);
+    }
+}
+
+
+/* ==========================================
+   ALERT MODALS
+   ========================================== */
+
+.alert-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 20;
-    top: 0px;
-    left: 0px;
-    background-color: rgba(0,0,0,0.85);
+    z-index: var(--z-modal, 50);
+    background: rgba(0, 0, 0, 0.85);
 }
 
-#alertVari .testoAlert{
-    background-color: white;
-    padding: 25px 50px;
-    color: #ac0000;
-    border-radius: 15px;
+.alert-content {
+    background: white;
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--color-error);
+}
+
+.alert-icon {
+    font-size: 2.5rem;
+}
+
+.alert-button {
+    margin: var(--space-md) auto 0;
+}
+
+
+/* ==========================================
+   RESPONSIVE: TOTALS VISIBILITY
+   ========================================== */
+
+/* Desktop: hide .totali in form (shown in summary column) */
+@media (min-width: 1024px) {
+    .totali {
+        display: none;
+    }
+
+    .summary-column {
+        display: flex;
+    }
+}
+
+/* Mobile: hide summary card (totals shown in .totali), keep buttons visible */
+@media (max-width: 1023px) {
+    .summary-column .summary-card {
+        display: none;
+    }
+
+    .summary-column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .totali {
+        display: grid;
+    }
+}
+
+/* Mobile: hide scribing speed field (always 8h, secondary info) */
+@media (max-width: 640px) {
+    .field--readonly {
+        display: none;
+    }
+}
+
+
+/* ==========================================
+   ICON SYSTEM (Lucide-style stroke icons)
+   ========================================== */
+
+.icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon--sm {
+    width: 16px;
+    height: 16px;
+}
+
+.icon--md {
+    width: 20px;
+    height: 20px;
+}
+
+.icon--lg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* ==========================================
+   ICON BUTTONS (circle buttons with icons)
+   ========================================== */
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+.icon-btn--gold {
+    border-color: rgba(173, 143, 79, 0.3);
+    color: var(--color-secondary);
+}
+
+.icon-btn--gold:hover {
+    border-color: var(--color-secondary);
+    background: rgba(173, 143, 79, 0.1);
+}
+
+.icon-btn--ghost {
+    border-color: rgba(0, 0, 0, 0.08);
+    color: var(--color-text);
+    opacity: 0.6;
+}
+
+.icon-btn--ghost:hover {
+    opacity: 1;
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   NOTES FAB (dark charcoal with book icon)
+   ========================================== */
+
+.btn-note--dark {
+    background: var(--color-text);
+    color: var(--color-white);
+}
+
+.btn-note--dark:hover {
+    background: #1a1715;
+    transform: scale(1.1);
+}
+
+
+/* ==========================================
+   SUMMARY CARD ENHANCEMENTS
+   ========================================== */
+
+.summary-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary-light);
+    border: 1px solid rgba(140, 33, 49, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+    color: var(--color-primary);
+}
+
+
+
+.summary-value-large {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    /* molto grande */
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    text-align: center;
+    line-height: 1;
+    margin-bottom: var(--space-md);
+}
+
+.currency {
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin-left: var(--space-xs);
+    vertical-align: baseline;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid var(--color-secondary);
+    opacity: 0.3;
+    margin: var(--space-md) 0;
+}
+
+.summary-mini-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+/* Single column variant (no base price) */
+.summary-mini-cards--single {
+    grid-template-columns: 1fr;
+}
+
+.summary-mini-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(173, 143, 79, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    text-align: center;
+}
+
+.summary-mini-card-label {
+    font-size: 0.625rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 17px;
-	text-align:center;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: var(--space-xs);
+    white-space: nowrap;
 }
 
-#alertVari .testoAlert .far{
-    font-size:45px;
-}
-
-.btn-retry{
-	background-color:#0280bd;
-	color:white;
-	margin-left: auto;
-	margin-right: auto;
-	width: 40px;
-	height: 40px;
-	margin-top: 25px;
-}
-
-.btn-retry:hover{
-	transform: rotate(90deg);
+.summary-mini-card-value {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
 }
 
 
+/* ==========================================
+   CALCULATE BUTTON WITH ICON
+   ========================================== */
 
-
-
-
-
-
-
-
-
-/*************** CHROME ****************/
-
-
-@supports (-webkit-appearance:none) {
-    .btn-copy .fas, .btn-delete .fas, #resetTotale .fas, .closeNote .fas{
-	     font-size:18px;
-	}
-}  
-
-
-
-
-
-
-
-
-
-
-
-
-/****************** RESPONSIVE *******************/
-
-@media all and (max-width: 1300px) {
-	header .container, main, footer{
-		padding-left:20px;
-		padding-right:20px;
-	}
+.btn-calculate {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.03em;
+    width: auto;
+    height: auto;
+    max-width: 220px;
+    text-transform: none;
+    white-space: nowrap;
 }
 
-@media all and (max-width: 1200px) {
-	header h1 {
-		font-size: 50px;
-	}
-	#logo {
-		width: 110px;
-	}
-	h2 {
-    	font-size: 30px;
-	}
-	main {
-		min-height: calc(100vh - 209px);
-	}
+.btn-calculate .icon {
+    width: 20px;
+    height: 20px;
 }
 
-@media all and (max-width: 900px) {
-	header h1 {
-		font-size: 40px;
-	}
-	#logo {
-		width: 100px;
-	}
-	h2 {
-    	font-size: 25px;
-	}
-	main {
-		min-height: calc(100vh - 199px);
-	}
+
+/* ==========================================
+   PILL BUTTONS (for Add/Remove actions)
+   ========================================== */
+
+.pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(173, 143, 79, 0.3);
+    background: transparent;
+    color: var(--color-secondary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-base);
 }
 
-@media all and (max-width: 700px) {
-	header h1 {
-		font-size: 25px;
-		display: block;
-		width: 100%;
-		text-align: center;
-		margin-bottom: 0px;
-	}
-	h2 {
-    	font-size: 20px;
-	}
-	
-	h3{
-		font-size:18px;
-	}
+.pill-btn:hover {
+    border-color: var(--color-secondary);
+    background: rgba(173, 143, 79, 0.1);
+    transform: translateY(-1px);
+}
 
-	#logo {
-		width: 80px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	header .container {
-		padding: 25px 10px;
-	}
-	main, footer{
-		padding-left:10px;
-		padding-right:10px;
-	}
-	main {
-		min-height: calc(100vh - 235px);
-	}
-	.calcoloSingolaPergamena {
-    	padding: 10px;
-	}
-	.calcoloCostoPergamene {
-		padding: 20px 0px;
-	}
-	input.pergamene {
-		width: 90px;
-	}
-	form fieldset:nth-child(2) {
-		margin-right: 0px;
-		margin-left: 0px;
-	}
-	label{
-		font-size:13px;
-	}
-	.costoTempo span, .totali span{
-		line-height:1;
-		font-size:13px;
-	}
-	input.pergamene, .costoTempo .costoPergamena, .costoTempo .tempoNecessario, .costoTempo .tempoNecessario2, .costoPergamenaTot, .tempoNecessarioTot {
-		font-size: 20px;
-	}
-	.costoTempo .costoPergamena, .costoTempo .tempoNecessario, .costoTempo .tempoNecessario2, .costoPergamenaTot, .tempoNecessarioTot {
-		height:36px;
-		padding-top:4px;
-	}
-	.mobile{
-		display:block!important;
-	}
-	.costoTempo > div {
-		width: 100px;
-		margin-left:5px;
-		margin-right:5px;
-	}
-	.btn-copy {
-		bottom: 58px;
-		right: 3px;
-		width: 35px;
-		height: 35px;
-	}
-	.btn-delete {
-		right: auto;
-		left: 5px;
-		bottom: 58px;
-		width: 35px;
-		height: 35px;
-	}
-	#resetTotale {
-		width: 40px;
-		height: 40px;
-		margin-left: calc(50% + 45px);
-		margin-top: -45px;
-	}
-	
-	#note{
-		padding:20px;
-		width:300px;
-		transform: translate(-300px);
-	}
-	#note.capolino {
-		transform: translate(-300px);
-	}
-	#note.noteVisibili {
-		transform: translate(0px);
-	}
-	.btn-note {
-		top:45px;
-		width: 35px;
-		height: 45px;
-		transform: translate(33px);
-		font-size:18px;
-	}
+.pill-btn:active {
+    transform: translateY(0);
+}
 
+.pill-btn .icon {
+    width: 18px;
+    height: 18px;
+}
+
+
+
+
+.pill-btn--danger {
+    border-color: rgba(140, 33, 49, 0.2);
+    color: var(--color-primary);
+    opacity: 0.8;
+}
+
+.pill-btn--danger:hover {
+    border-color: var(--color-primary);
+    background: rgba(140, 33, 49, 0.05);
+    opacity: 1;
+}
+
+
+/* ==========================================
+   FIELD STRUCTURE (labels, meta, helpers)
+   ========================================== */
+/* ... (middle content preserved by omitting it from replacement if I use ranges, but here I am replacing chunks) ... */
+/* Wait, I should use MULTI_REPLACE or be careful with ranges. */
+/* The file is large. I will use multi_replace to be safe and precise. */
+
+
+
+/* ==========================================
+   FIELD STRUCTURE (labels, meta, helpers)
+   ========================================== */
+
+.field {
+    margin-bottom: var(--space-md);
+}
+
+.field--readonly {
+    opacity: 0.9;
+}
+
+.field-label-row {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: baseline;
+    margin-bottom: 0px;
+}
+
+.field-label {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.field-meta {
+    font-size: var(--font-size-small);
+    color: var(--color-secondary);
+    opacity: 0.7;
+}
+
+.field-helper {
+    font-size: 0.8125rem;
+    /* ~13px desktop */
+    color: var(--color-text);
+    opacity: 0.6;
+    margin-top: var(--space-xs);
+    line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+    .field-helper {
+        font-size: 0.875rem;
+        /* 14px — più leggibile su mobile */
+    }
+}
+
+
+/* ==========================================
+   READ-ONLY INPUT STYLING
+   ========================================== */
+
+.input-glass--readonly {
+    height: var(--input-height);
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    border-radius: var(--input-radius);
+    border: 1px solid var(--input-border);
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    cursor: default;
+    user-select: none;
+}
+
+.readonly-value {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+
+/* ==========================================
+   JS UPDATE SYNC (desktop summary + mobile totali)
+   ========================================== */
+
+/* Ensure JS updates to ID elements in summary also reflect in mobile totali via class */
+/* JS updates #costoPergamenaTot and #tempoNecessarioTot which are now in summary column */
+/* Mobile .totali elements use same classes and will need JS to update them too */
+/* This is handled by ensuring both have the same class names */
+/* ==========================================
+   WIREFRAME PARITY UPDATES (V1-B3.2)
+   ========================================== */
+
+/* Header Adjustments */
+.header-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+/* Reset button */
+
+
+.btn-reset-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    margin: var(--space-md) auto 0;
+    padding: var(--space-sm) var(--space-md);
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    font-size: var(--font-size-meta);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    opacity: 0.7;
+}
+
+.btn-reset-link:hover {
+    opacity: 1;
+    color: var(--color-primary);
+}
+
+.header-icon-box {
+    width: 50px;
+    height: 50px;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+}
+
+.header-icon-box .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.header-title-group h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.1;
+}
+
+.header-title-group p {
+    color: var(--color-secondary);
+    font-size: var(--font-size-body);
+    font-style: italic;
+    margin: 0;
+}
+
+/* Input Grid 2x2 */
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg) var(--space-2xl);
+    /* row gap 24px, column gap 48px */
+    margin-bottom: var(--space-lg);
+}
+
+
+
+/* Fieldset label styling */
+fieldset label {
+    display: block;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: var(--font-size-label);
+    margin-bottom: var(--space-xs);
+}
+
+/* Input with icon wrapper */
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-wrapper .input-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    pointer-events: none;
+}
+
+.input-icon-wrapper .input-glass {
+    padding-left: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Partial Outputs (Row Level) */
+
+
+.row-partials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg) var(--space-2xl);
+    /* stessi gap di .input-grid */
+    margin-top: var(--space-xl);
+}
+
+/* Partial boxes */
+.partial-item,
+.partial-box {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(173, 143, 79, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.partial-label {
+    font-size: 0.9375rem;
+    /* 15px */
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    /* charcoal, non gold */
+    text-transform: none;
+    /* non uppercase */
+    letter-spacing: normal;
+}
+
+.partial-unit {
+    color: var(--color-primary);
+    margin-left: 0.3rem;
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+}
+
+.partial-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-top: var(--space-xs);
+}
+
+/* Calculate Button Positioning */
+/* Card Footer Row with Info + Remove and Calculate Button */
+.calculate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-xl);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: var(--space-md);
+}
+
+.card-footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.card-footer-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.875rem;
+    color: var(--color-text);
+}
+
+.btn-remove-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: none;
+    /* nascosto di default, JS lo mostra */
+    align-items: center;
+    gap: var(--space-xs);
+    transition: opacity var(--transition-base);
+}
+
+.btn-remove-link:hover {
+    opacity: 0.7;
+}
+
+/* Proxy Add Button (Right Column) */
+.ui-add-scroll-btn {
+    width: 100%;
+    margin-top: var(--space-md);
+    border: 2px dashed rgba(173, 143, 79, 0.5);
+    background: transparent;
+    color: var(--color-secondary);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    transition: all var(--transition-base);
+}
+
+.ui-add-scroll-btn:hover {
+    background: rgba(173, 143, 79, 0.05);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+/* Hide original Add button but keep it functional */
+.btn-copy.hidden-proxy {
+    display: none !important;
+}
+
+/* Summary Card Adjustments */
+.summary-column {
+    position: sticky;
+    top: 20px;
+}
+
+/* Hide Remove button on the first row to prevent deleting the template */
+#sezionePerg-0 .btn-delete {
+    display: none !important;
+}
+
+/* ==========================================
+   NOTE PANEL (Slide Drawer)
+   ========================================== */
+#note {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    max-width: 90%;
+    height: 100vh;
+    /* fallback browser datati */
+    height: 100dvh;
+    /* fix address bar jump mobile */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-left: 1px solid var(--glass-border);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    /* High z-index */
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+#note.noteVisibili {
+    transform: translateX(0);
+}
+
+.note-header {
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(173, 143, 79, 0.2);
+    /* Gold trace */
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.note-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin: 0;
+    font-weight: 700;
+}
+
+.note-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--color-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.note-close:hover {
+    background: rgba(140, 33, 49, 0.1);
+    color: var(--color-primary);
+}
+
+.note-body {
+    flex: 1;
+    padding: var(--space-lg);
+    overflow-y: auto;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+}
+
+.note-body p {
+    margin-bottom: var(--space-md);
+}
+
+.note-body strong {
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.note-body a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(140, 33, 49, 0.05);
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
+}
+
+.note-body a:hover {
+    background: rgba(140, 33, 49, 0.1);
+}
+
+/* ==========================================
+   FAB BUTTON (Notes)
+   ========================================== */
+.btn-note {
+    position: fixed;
+    bottom: calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
+    right: var(--space-xl);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    border: 1px solid var(--color-secondary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 900;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Mobile (≤640px): alza il FAB per non coprire input e totali */
+@media (max-width: 640px) {
+    .btn-note {
+        bottom: calc(var(--space-3xl) + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+.btn-note:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-note:active {
+    transform: translateY(0);
+}
+
+.btn-note--dark {
+    background: var(--color-text);
+    color: var(--color-white);
+    border-color: var(--color-text);
+}
+
+.btn-note--dark:hover {
+    background: #1a1816;
+    /* Darker shade */
+}
+
+
+
+
+
+/* ==========================================
+   MAGICAL PARTICLES (floating gold dust)
+   ========================================== */
+
+.magic-particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    left: var(--x);
+    bottom: -10px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--color-secondary);
+    opacity: 0;
+    animation: particle-float var(--duration) var(--delay) ease-in-out infinite;
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(-100vh) translateX(30px);
+        opacity: 0;
+    }
+}
+
+/* Rispetta prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .particle {
+        animation: none;
+        display: none;
+    }
+}
+
+/* ==========================================
+   DARK THEME — Component Overrides
+   ========================================== */
+
+
+/* Output value */
+.dark-theme .output-value {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-text);
+}
+
+/* Totali */
+.dark-theme .totali .output-value {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Icon buttons */
+.dark-theme .icon-btn {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.dark-theme .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Note panel */
+.dark-theme #note {
+    background: rgba(30, 27, 24, 0.95);
+    border-left-color: var(--color-secondary);
+}
+
+.dark-theme .note-header {
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom-color: rgba(173, 143, 79, 0.15);
+}
+
+.dark-theme .note-close {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.dark-theme .note-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Note body link */
+.dark-theme .note-body a {
+    background: rgba(140, 33, 49, 0.15);
+}
+
+.dark-theme .note-body a:hover {
+    background: rgba(140, 33, 49, 0.25);
+}
+
+/* Partial boxes */
+.dark-theme .partial-item,
+.dark-theme .partial-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(173, 143, 79, 0.12);
+}
+
+/* Partial unit in dark */
+.dark-theme .partial-unit {
+    color: var(--color-secondary);
+}
+
+/* Summary mini-card */
+.dark-theme .summary-mini-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(173, 143, 79, 0.12);
+}
+
+/* Currency color — stays red in both themes */
+.dark-theme .currency {
+    color: var(--color-primary);
+}
+
+/* Calculate row border */
+.dark-theme .calculate-row {
+    border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Summary divider */
+.dark-theme .summary-divider {
+    border-top-color: rgba(173, 143, 79, 0.2);
+}
+
+/* Read-only input */
+.dark-theme .input-glass--readonly {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(173, 143, 79, 0.15);
+}
+
+/* Alert modal */
+.dark-theme .alert-modal {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.dark-theme .alert-content {
+    background: #2A2622;
+}
+
+/* FAB button in dark */
+.dark-theme .btn-note {
+    background: var(--color-secondary);
+    color: #1A1714;
+    border-color: var(--color-secondary);
+}
+
+.dark-theme .btn-note:hover {
+    background: #C4A665;
+}
+
+/* Add scroll button */
+.dark-theme .ui-add-scroll-btn {
+    border-color: rgba(173, 143, 79, 0.35);
+}
+
+.dark-theme .ui-add-scroll-btn:hover {
+    background: rgba(173, 143, 79, 0.08);
+}
+
+/* Field helpers */
+.dark-theme .field-helper {
+    color: var(--color-text);
+    opacity: 0.5;
+}
+
+/* Selection color in dark */
+.dark-theme ::selection {
+    background-color: rgba(173, 143, 79, 0.3);
+    color: var(--color-text);
+}
+
+/* Scrollbar in dark */
+.dark-theme ::-webkit-scrollbar-track {
+    background: rgba(173, 143, 79, 0.05);
+}
+
+.dark-theme ::-webkit-scrollbar-thumb {
+    background: rgba(173, 143, 79, 0.2);
+}
+
+/* Reset button disabled state */
+.btn-reset-link.btn-disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+/* ==========================================
+   POLICY PAGES
+   ========================================== */
+
+.policy-content {
+    padding: var(--space-xl);
+}
+
+.policy-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+}
+
+.policy-body h3:first-child {
+    margin-top: var(--space-md);
+}
+
+.policy-body p {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+}
+
+.policy-body ul {
+    margin: var(--space-sm) 0 var(--space-md) var(--space-lg);
+    list-style-type: disc;
+}
+
+.policy-body li {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+}
+
+.policy-body a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.policy-body a:hover {
+    color: var(--color-secondary);
+}
+
+.policy-body strong {
+    font-weight: var(--font-weight-semibold);
+}
+
+/* Footer links row */
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: var(--font-size-meta);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.footer-links a:hover {
+    color: var(--color-primary);
+}
+
+.footer-sep {
+    color: rgba(0, 0, 0, 0.2);
+    font-size: var(--font-size-small);
+}
+
+/* Dark theme overrides */
+.dark-theme .footer-links a {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.dark-theme .footer-links a:hover {
+    color: var(--color-secondary);
+}
+
+.dark-theme .footer-sep {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+
+/* ==========================================
+   INFO BANNER (localStorage notice)
+   ========================================== */
+
+.info-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-toast);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-top: 1px solid var(--glass-border);
+    padding: var(--space-md) var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(0);
+    transition: transform var(--transition-slow), opacity var(--transition-slow);
+}
+
+.info-banner.dismissed {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.info-banner p {
+    font-size: var(--font-size-meta);
+    color: var(--color-text);
+    margin: 0;
+    flex: 1;
+}
+
+.info-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-shrink: 0;
+}
+
+.info-banner-actions a {
+    font-size: var(--font-size-small);
+    color: var(--color-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+}
+
+.info-banner-actions button {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--transition-base);
+}
+
+.info-banner-actions button:hover {
+    background: var(--color-primary-hover);
+}
+
+/* Dark theme */
+.dark-theme .info-banner {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .info-banner-actions button {
+    color: #fff;
+}
+
+/* Mobile: stack layout */
+@media (max-width: 640px) {
+    .info-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--space-md);
+    }
+}
+
+
+/* ==========================================
+   ICON UTILITY CLASSES
+   ========================================== */
+
+.icon-sm {
+    font-size: 1rem;
+}
+
+.icon-md {
+    font-size: 1.1rem;
+}
+
+.icon-lg {
+    font-size: 1.2rem;
+}
+
+.icon-gold {
+    color: var(--color-secondary);
+}
+
+.icon-schedule {
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    margin-right: 8px;
+}
+
+/* Hidden controls (proxy buttons — kept in DOM for JS, never visible) */
+.hidden-controls {
+    display: none;
+}
+
+
+/* ==========================================
+   FOCUS-VISIBLE (keyboard navigation)
+   ========================================== */
+
+*:focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+}
+
+/* Remove default outline for mouse clicks */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ==========================================
+   MOBILE COMPACT (<=600px)
+   ========================================== */
+
+/* Hide secondary footer info + reduce card title size */
+@media (max-width: 600px) {
+    .card-footer-info {
+        display: none;
+    }
+
+    .header-title-group h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* ==========================================
+   PERFORMANCE: reduce blur on small phones
+   ========================================== */
+
+@media (max-width: 480px) {
+
+    .card-glass,
+    .summary-card,
+    .info-banner {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
 }

@@ -1,10 +1,3 @@
-# OS / editor junk
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-.idea/
-.vscode/
-
-# Logs
-*.log
+BKP_per_header_completo.html
+4.zip
+*.zip
